@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This project is a full-stack application that displays sales data in a user-friendly dashboard. It consists of:
+This project is a simple full-stack application that displays sales data in a user-friendly dashboard. It consists of:
 
 - **Frontend**: A Next.js application that renders sales representatives' data
 - **Backend**: A FastAPI server that provides REST endpoints and optional AI functionality
@@ -144,29 +144,55 @@ Accepts a question about the sales data and returns an AI-generated response.
 
 ## Design Choices
 
-### Frontend Design
+### Why This Architecture?
+
+The architecture of this project was carefully designed to balance modern development practices, performance, and developer experience. Here's why we made these choices:
+
+### Frontend Design (Next.js)
+
+We chose Next.js for the frontend for several compelling reasons:
 
 1. **Component Structure**
    - Single page application with conditional rendering for different views
    - Separation of concerns between data fetching, display, and user interaction
+   - **Why?** This structure promotes code reusability, maintainability, and a clear separation of responsibilities, making the codebase easier to understand and extend.
 
 2. **UI/UX Considerations**
    - Mobile-first responsive design
    - Loading states to provide feedback during data fetching
    - Error handling with user-friendly messages
    - Interactive elements for exploring nested data structures
+   - **Why?** These considerations ensure a smooth user experience across all devices and network conditions, increasing user engagement and satisfaction.
 
-### Backend Design
+3. **Next.js Benefits**
+   - **Server-side rendering** capabilities improve initial load performance and SEO
+   - **Built-in API routes** simplify backend integration
+   - **Automatic code splitting** reduces initial bundle size
+   - **Hot module replacement** enhances developer experience
+   - **Strong TypeScript support** improves code quality and developer productivity
+
+### Backend Design (FastAPI)
+
+FastAPI was selected as our backend framework for these key reasons:
 
 1. **API Architecture**
    - RESTful endpoints following standard conventions
    - CORS configuration to allow frontend access
    - Automatic API documentation with FastAPI's built-in Swagger UI
+   - **Why?** This architecture provides a clean, standardized interface for the frontend to consume, with built-in documentation that simplifies development and testing.
 
-2. **AI Integration**
+2. **FastAPI Advantages**
+   - **High performance** - one of the fastest Python frameworks available
+   - **Automatic validation** of request and response data
+   - **Built-in async support** for handling concurrent requests efficiently
+   - **Minimal boilerplate code** compared to alternatives like Flask or Django
+   - **Modern Python features** utilizing type hints and Pydantic models
+
+3. **AI Integration**
    - Gemini API integration for natural language processing
    - Context-aware prompts that include sales data information
    - Error handling for cases when the API key is not configured
+   - **Why?** This integration adds intelligent capabilities to the dashboard without requiring extensive AI expertise or infrastructure. Gemini offers free access to a wide range of models, making it a suitable choice for our AI needs.
 
 ### Data Management
 
@@ -178,6 +204,31 @@ Accepts a question about the sales data and returns an AI-generated response.
    - Backend reads from static JSON file
    - Frontend fetches and caches data for efficient rendering
    - Selected data is passed to child components as needed
+   - **Why?** This approach minimizes unnecessary data transfers, reduces component coupling, and improves application performance by only passing required data to each component.
+
+### Why Google's Gemini API?
+
+The choice to integrate Google's Gemini API for the AI functionality was deliberate and based on several factors:
+
+1. **Advanced Natural Language Understanding**
+   - Gemini offers superior comprehension of complex, context-heavy questions about sales data
+   - Capable of understanding industry-specific terminology and nuanced queries
+   - Provides more natural, human-like responses compared to simpler language models
+   - Free API access for testing and development with certain usage limits.
+
+2. **Technical Advantages**
+   - **Context window** - can process the entire sales dataset in a single prompt
+   - **Low latency** - provides quick responses essential for interactive Q&A features
+
+3. **Integration Simplicity**
+   - Clean, well-documented Python SDK that integrates seamlessly with FastAPI
+   - Straightforward authentication using API keys
+   - Minimal code required to implement powerful AI features
+
+4. **Alternatives Considered**
+   - **OpenAI GPT models** - Comparable capabilities but higher costs for similar performance
+   - **Open-source models** - Would require significant infrastructure and expertise to deploy and maintain
+   - **Custom ML solutions** - Would require extensive development time and specialized knowledge
 
 ## Potential Improvements
 
